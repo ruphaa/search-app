@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './FileUpload.css';
+import swal from 'sweetalert';
 
 class FileUpload extends Component {
 
@@ -43,6 +44,7 @@ class FileUpload extends Component {
         })
         .then((response) => {
             this.setUploadStatus(true);
+            swal("File Upload", "You have successfully uploaded a file", "success")
         })
         .catch((error) => {
             console.log(error);
@@ -59,7 +61,7 @@ class FileUpload extends Component {
     render() {
         return (
             
-            <div className="container">
+            <div className="upload-wrapper">
                 <form className="file-form" onSubmit={this.handleUpload}>
                     <i className="fa fa-refresh" onClick={this.resetState}></i>
                     <div className="file-upload">
@@ -68,15 +70,10 @@ class FileUpload extends Component {
                             <div className="file-select-name" id="noFile">{ this.state.fileName }</div> 
                             <input type="file" name="chooseFile" id="chooseFile" ref={(ref) => { this.uploadInput=ref; }} onChange={(e) => this.updateFileName(e)}/>
                         </div>
-                        <button className="file-upload-button" id="fileName">Upload</button>
+                        
                     </div>
+                    <button className="file-upload-button" id="fileName">Upload</button>
                 </form>
-                {/* {
-                    this.state.uploadStatus ? (
-                        <h2>Uploaded successfully</h2>
-                    ) : (
-                        <h2></h2>
-                    )} */}
             </div>
             
         );

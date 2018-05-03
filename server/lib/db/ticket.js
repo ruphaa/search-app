@@ -21,9 +21,10 @@ const saveTickets = function(tickets) {
 const getTicketsBySearchTermX = function(searchTerm){
     return new Promise(function(resolve, reject){
         console.log('Search term : ', searchTerm);
-        const result = TicketsCollection.find({$text: {$search: { '$regex' : searchTerm, '$options' : 'i' }}}, function(err, docs) {
+        const result = TicketsCollection.find({$text: {$search: { '$regex' : searchTerm, '$options' : 'i' }}}).sort({'date': -1}).limit(7).exec(function(err, docs) {
             if (err) console.log(err);
             else {
+                console.log(docs);
                 return docs;
             }
         });
@@ -48,7 +49,7 @@ const getTicketsBySearchTermz = function(searchTerm){
     return new Promise(function(resolve, reject){
         console.log('Search term : ', searchTerm);
         const term = '/'+searchTerm+'/i';
-        const result = TicketsCollection.find({$or: [{$text: {$search: searchTerm}}, {name: {$regex: term}}]}, function(err, docs) {
+        const result = TicketsCollection.find({$or: [{$text: {$search: searchTerm}}, {name: {$regex: term}}]}).sort({'date': -1}).limit(7).exec(function(err, docs) {
             if (err) console.log(err);
             else {
                 return docs;
@@ -60,13 +61,13 @@ const getTicketsBySearchTermz = function(searchTerm){
 
 const getTicketsBySearchTerm = function(searchTerm){
     return new Promise(function(resolve, reject){
-        const result = TicketsCollection.find({name: {$regex: searchTerm, $options:'$i' }}, function(err, docs) {
-            if (err) console.log(err);
+       TicketsCollection.find({name: {$regex: searchTerm, $options:'$i' }}).sort({'date': -1}).limit(7).exec(function(err, docs) {
+            if (err) reject(err);
             else {
-                return docs;
+                resolve(docs);
             }
         });
-        resolve(result);
+        
     })
 }
 

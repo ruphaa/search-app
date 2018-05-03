@@ -34,10 +34,8 @@ router.post('/upload-contents', function(req, res, next){
 
 router.get('/search-by-term/', function(req, res, next){
   const searchTerm = req.query.searchTerm;
-  console.log('Search term '+searchTerm);
   getTickets(searchTerm)
   .then(function(docs){
-    console.log('Result '+docs);
     res.json({response: docs});
   }).catch(function(){
     res.status = 500;

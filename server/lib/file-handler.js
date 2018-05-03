@@ -10,14 +10,12 @@ const parseAndDump = (file) => {
     if (file.mimetype === 'application/json') {
         fileType = 'json';
        return parseJSON(file).then(tickets => {
-            console.log(tickets);
             return saveToDB(tickets)
         });
     } else if (file.mimetype === 'text/xml') {
         fileType = 'xml';
         console.log('Evaluation stage');
         return parseXMlToJSON(file).then(data => {
-            console.log(data);
             return saveToDB(data);
         });
     }

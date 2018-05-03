@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import FileUpload from './components/FileUpload';
 import Search from './components/Search';
+import Header from './components/Header';
+import swal from 'sweetalert';
 
 class App extends Component {
 
@@ -24,12 +26,18 @@ class App extends Component {
     const { uploadStatus } = this.state;
     return (
       
-      <div className="root-container">
-        <FileUpload setUploadStatus={this.setUploadStatus} />
-        {
-          uploadStatus ? <Search /> : null
-        }
-      </div>
+      
+          
+          <div className="root-container">
+            <FileUpload setUploadStatus={this.setUploadStatus} />
+            {/* {
+              uploadStatus ? <h2>Uploaded Successfully</h2> : null
+            } */}
+            {
+              uploadStatus ? <Search /> : null
+            }
+        </div>
+      
     );  
   }
 }
